@@ -20,6 +20,9 @@ type PortStatus struct {
 // CheckPortHandler checks if the supplied address is connectable.
 func CheckPortHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+
+	log.Printf("%v checked %v\n", r.RemoteAddr, ps.ByName("addr"))
+
 	st := PortStatus{}
 
 	conn, err := net.DialTimeout("tcp", ps.ByName("addr"), time.Second*10)
